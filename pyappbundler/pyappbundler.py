@@ -63,30 +63,30 @@ class Bundler:
 
     def clean_dist(self):
         if self.no_clean_dist:
-            logging.info(f'Cancel cleaning "{self.dist_path}" directory.')
+            logging.info(f'Cancel cleaning "{self.dist}" directory.')
             return self
 
         #
-        logging.info(f'Cleaning "{self.dist_path}" directory...')
+        logging.info(f'Cleaning "{self.dist}" directory...')
 
-        if not self.dist_path.exists():
-            self.dist_path.mkdir(parents=True)
+        if not self.dist.exists():
+            self.dist.mkdir(parents=True)
             logging.info(
-                f'"{self.dist_path}" directory doesn\'t exist!'
+                f'"{self.dist}" directory doesn\'t exist!'
                 ' The new one has been created.')
             return
 
-        if not self.dist_path.is_dir():
+        if not self.dist.is_dir():
             raise FileNotFoundError(
-                f'Directory expected, but "{self.dist_path}" is not!')
+                f'Directory expected, but "{self.dist}" is not!')
 
-        for path in self.dist_path.iterdir():
+        for path in self.dist.iterdir():
             if path.is_file():
                 path.unlink()
             elif path.is_dir():
                 shutil.rmtree(path)
 
-        logging.info(f'"{self.dist_path}" directory has been cleaned!\n')
+        logging.info(f'"{self.dist}" directory has been cleaned!\n')
 
         return self
 
