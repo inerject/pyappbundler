@@ -1,4 +1,4 @@
-Jinja2>=3.1,<4.0
-pyinstaller>=5.13,<6.0
+Jinja2 >=3.1, <4.0
+pyinstaller >=5.13, <6.0
 
 appver

@@ -1,5 +1,3 @@
-__all__ = ('exe', 'exe_and_setup')
-
 from pathlib import Path
 import shutil
 import logging
@@ -11,7 +9,7 @@ import jinja2
 
 def exe(
     target, *,
-    app_name, icon, dist, build,
+    app_name, icon, dist='dist', build='build',
     res_dirs: list = None, pyinst_flags: list = None,
     no_clean_dist=False,
 ):
@@ -23,7 +21,7 @@ def exe(
 
 def exe_and_setup(
     target, *,
-    app_name, icon, app_guid, app_ver, dist, build,
+    app_name, icon, app_guid, app_ver, dist='dist', build='build',
     res_dirs: list = None, pyinst_flags: list = None,
     no_clean_dist=False,
 ):

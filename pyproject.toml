@@ -17,8 +17,8 @@ classifiers = [
 ]
 dynamic = ["version"]
 dependencies = [
-    "pyinstaller>=5.13,<6",
-    "Jinja2>=3.1,<4",
+    "pyinstaller >=5.13, <6.0",
+    "Jinja2 >=3.1, <4.0",
 ]
 
 [project.urls]
