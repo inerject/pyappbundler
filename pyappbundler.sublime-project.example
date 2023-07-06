@@ -27,7 +27,22 @@
     "name": "venv Python",
     "shell": true,
     "working_dir": "$project_path",
+    "env": {
+      "TWINE_USERNAME": "inerject",
+      "TWINE_PASSWORD": "***",
+    },
     "variants": [
+      {
+        "name": "Release",
+        "cmd": ["$project_path/venv/Scripts/python", "-m", "build"],
+      },
+      {
+        "name": "push Release to PYPI",
+        "cmd": [
+          "$project_path/venv/Scripts/python", "-m", "twine", "upload",
+          "--skip-existing", "dist/*",
+        ],
+      },
       {
         "name": "Build",
         "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
