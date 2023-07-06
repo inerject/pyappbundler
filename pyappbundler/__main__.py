@@ -15,13 +15,17 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     '-t', '--target', required=True, help='target python script')
 parser.add_argument(
-    '-a', '--app-name', required=True, help='application name')
+    '-a', '--app-name', default='',
+    help="""Application name.
+        If not specified, then it calculates from "target" value.""")
 parser.add_argument(
     '-i', '--icon', required=True, help='application icon')
 parser.add_argument(
-    '-g', '--app-guid', required=True, help='application GUID')
+    '-g', '--app-guid', default='',
+    help='Application GUID. Required for setup building!')
 parser.add_argument(
-    '-v', '--app-ver', required=True, help='application version')
+    '-v', '--app-ver', default='',
+    help='Application version. Required for setup building!')
 
 parser.add_argument(
     '-r', '--res-dir', action="extend", nargs=1,
@@ -56,20 +60,17 @@ logging.basicConfig(
 )
 
 #
+bundler_args = {
+    'target': args.target, 'app_name': args.app_name, 'icon': args.icon,
+    'dist': args.dist_dir, 'build': args.build_dir,
+    'res_dirs': args.res_dir, 'pyinst_flags': args.pyinst_flag,
+    'no_clean_dist': args.no_clean_dist,
+}
+
 if args.no_setup:
-    exe(
-        args.target,
-        app_name=args.app_name, icon=args.icon,
-        dist=args.dist_dir, build=args.build_dir,
-        res_dirs=args.res_dir, pyinst_flags=args.pyinst_flag,
-        no_clean_dist=args.no_clean_dist,
-    )
+    exe(**bundler_args)
 else:
-    exe_and_setup(
-        args.target,
-        app_name=args.app_name, icon=args.icon,
-        app_guid=args.app_guid, app_ver=args.app_ver,
-        dist=args.dist_dir, build=args.build_dir,
-        res_dirs=args.res_dir, pyinst_flags=args.pyinst_flag,
-        no_clean_dist=args.no_clean_dist,
-    )
+    bundler_args['app_guid'] = args.app_guid
+    bundler_args['app_ver'] = args.app_ver
+
+    exe_and_setup(**bundler_args)
