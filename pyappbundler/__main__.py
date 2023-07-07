@@ -13,13 +13,13 @@ parser = argparse.ArgumentParser(
 )
 
 parser.add_argument(
-    '-t', '--target', required=True, help='target python script')
+    'target', help='target python script')
 parser.add_argument(
     '-a', '--app-name', default='',
     help="""Application name.
         If not specified, then it calculates from "target" value.""")
 parser.add_argument(
-    '-i', '--icon', required=True, help='application icon')
+    '-i', '--icon', default='', help='application icon')
 parser.add_argument(
     '-g', '--app-guid', default='',
     help='Application GUID. Required for setup building!')

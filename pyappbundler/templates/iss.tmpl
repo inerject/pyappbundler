@@ -1,10 +1,10 @@
-#define MyAppName "[{{app_name}}]"
-#define MyAppVersion "[{{app_ver}}]"
-#define MyAppExeName "[{{app_name}}].exe"
-#define Dist "[{{dist}}]"
+#define MyAppName "[{{ app_name }}]"
+#define MyAppVersion "[{{ app_ver }}]"
+#define MyAppExeName "[{{ app_name }}].exe"
+#define Dist "[{{ dist }}]"
 
 [Setup]
-AppId={[{{app_guid}}]
+AppId={[{{ app_guid }}]
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -14,7 +14,9 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 OutputDir={#Dist}
 OutputBaseFilename={#MyAppName}_setup__{#MyAppVersion}
-SetupIconFile=[{{app_ico}}]
+{%% if app_ico %%}
+SetupIconFile=[{{ app_ico }}]
+{%% endif %%}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern

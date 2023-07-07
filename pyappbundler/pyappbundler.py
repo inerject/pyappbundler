@@ -9,7 +9,7 @@ import jinja2
 
 def exe(
     target, *,
-    app_name='', icon, dist='dist', build='build',
+    app_name='', icon='', dist='dist', build='build',
     res_dirs: list = None, pyinst_flags: list = None,
     no_clean_dist=False,
 ):
@@ -24,7 +24,7 @@ def exe(
 
 def exe_and_setup(
     target, *,
-    app_name='', icon, app_guid, app_ver, dist='dist', build='build',
+    app_name='', icon='', app_guid, app_ver, dist='dist', build='build',
     res_dirs: list = None, pyinst_flags: list = None,
     no_clean_dist=False,
 ):
@@ -41,7 +41,7 @@ def exe_and_setup(
 class Bundler:
     def __init__(
         self, target, *,
-        app_name='', icon, app_guid='', app_ver='', dist='dist', build='build',
+        app_name='', icon='', app_guid='', app_ver='', dist='dist', build='build',
         res_dirs: list = None, pyinst_flags: list = None,
         no_clean_dist=False,
     ):
@@ -52,7 +52,10 @@ class Bundler:
         else:
             self.app_name = self.target.stem
 
-        self.icon = Path(icon).resolve()
+        if icon:
+            self.icon = Path(icon).resolve()
+        else:
+            self.icon = icon
 
         #
         self.app_guid, self.app_ver = app_guid, app_ver
@@ -96,10 +99,14 @@ class Bundler:
         args = [
             str(self.target),
             '--name', self.app_name,
-            '--icon', str(self.icon),
             '--distpath', str(self.dist),
             '--workpath', str(self.build),
         ]
+
+        if self.icon:
+            args.extend(['--icon', str(self.icon)])
+        else:
+            args.extend(['--icon', 'NONE'])
 
         if self.pyinst_flags:
             args.extend([f'--{flag}' for flag in self.pyinst_flags])
