@@ -109,7 +109,11 @@ class Bundler:
             args.extend(['--icon', 'NONE'])
 
         if self.pyinst_flags:
-            args.extend([f'--{flag}' for flag in self.pyinst_flags])
+            for flag in self.pyinst_flags:
+                if len(flag) == 1:
+                    args.append(f'-{flag}')
+                else:
+                    args.append(f'--{flag}')
 
         if self.res_dirs:
             for directory in self.res_dirs:
