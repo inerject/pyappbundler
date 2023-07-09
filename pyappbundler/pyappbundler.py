@@ -142,6 +142,7 @@ class Bundler:
             'app_guid': self.app_guid,
             'app_ver': self.app_ver,
             'dist': str(self.dist),
+            'is_onefile': ('onefile' in self.pyinst_flags),
         }
 
         tmpl_path = Path(__file__).parent / 'templates/iss.tmpl'

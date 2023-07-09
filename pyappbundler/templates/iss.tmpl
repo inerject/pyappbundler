@@ -30,8 +30,12 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
+{%% if is_onefile %%}
+Source: "{#Dist}\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+{%% else %%}
 Source: "{#Dist}\{#MyAppName}\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Dist}\{#MyAppName}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+{%% endif %%}
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
