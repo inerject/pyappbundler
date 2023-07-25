@@ -77,7 +77,7 @@ class Bundler:
             logging.info(
                 f'"{self.dist}" directory doesn\'t exist!'
                 ' The new one has been created.')
-            return
+            return self
 
         if not self.dist.is_dir():
             raise FileNotFoundError(
