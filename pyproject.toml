@@ -17,7 +17,7 @@ classifiers = [
 license = "MIT"
 dynamic = ["version"]
 dependencies = [
-    "pyinstaller >=5.13, <6.0",
+    "pyinstaller >=6.14, <7.0",
     "Jinja2 >=3.1, <4.0",
 ]
 
