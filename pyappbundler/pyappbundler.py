@@ -11,14 +11,14 @@ def exe(
     target, *,
     app_name='', icon='', dist='dist', build='build',
     res_dirs: list = None, pyinst_flags: list = None,
-    no_clean_dist=False,
+    no_clean_dist=False, optimize=1,
 ):
     Bundler(
         target,
         app_name=app_name, icon=icon,
         dist=dist, build=build,
         res_dirs=res_dirs, pyinst_flags=pyinst_flags,
-        no_clean_dist=no_clean_dist,
+        no_clean_dist=no_clean_dist, optimize=optimize,
     ).clean_dist().build_exe()
 
 
@@ -26,7 +26,7 @@ def exe_and_setup(
     target, *,
     app_name='', icon='', app_guid, app_ver, dist='dist', build='build',
     res_dirs: list = None, pyinst_flags: list = None,
-    no_clean_dist=False,
+    no_clean_dist=False, optimize=1,
 ):
     Bundler(
         target,
@@ -34,7 +34,7 @@ def exe_and_setup(
         app_guid=app_guid, app_ver=app_ver,
         dist=dist, build=build,
         res_dirs=res_dirs, pyinst_flags=pyinst_flags,
-        no_clean_dist=no_clean_dist,
+        no_clean_dist=no_clean_dist, optimize=optimize,
     ).clean_dist().build_exe().build_setup()
 
 
@@ -43,7 +43,7 @@ class Bundler:
         self, target, *,
         app_name='', icon='', app_guid='', app_ver='', dist='dist', build='build',
         res_dirs: list = None, pyinst_flags: list = None,
-        no_clean_dist=False,
+        no_clean_dist=False, optimize=1,
     ):
         self.target = Path(target).resolve()
 
@@ -62,7 +62,7 @@ class Bundler:
         self.dist, self.build = Path(dist).resolve(), Path(build).resolve()
 
         self.res_dirs, self.pyinst_flags = res_dirs, pyinst_flags
-        self.no_clean_dist = no_clean_dist
+        self.no_clean_dist, self.optimize = no_clean_dist, optimize
 
     def clean_dist(self):
         if self.no_clean_dist:
@@ -101,6 +101,7 @@ class Bundler:
             '--name', self.app_name,
             '--distpath', str(self.dist),
             '--workpath', str(self.build),
+            '--optimize', str(self.optimize),
         ]
 
         if self.icon:

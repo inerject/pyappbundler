@@ -28,7 +28,7 @@
     "shell": true,
     "working_dir": "$project_path",
     "env": {
-      "TWINE_USERNAME": "inerject",
+      "TWINE_USERNAME": "__token__",
       "TWINE_PASSWORD": "***",
     },
     "variants": [
